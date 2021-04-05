@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "35401941336",
+    "project_id": "nikki-app-7cb0e",
+    "storage_bucket": "nikki-app-7cb0e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:35401941336:android:71734d281e7a61dfa2252d",
+        "android_client_info": {
+          "package_name": "com.davis.nikkinotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "35401941336-ngld444d3vo55atqf3q9r4knsodf7b8t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACn82BkMUDfpEpqeqA4nywHLEeQaSyTms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "35401941336-ngld444d3vo55atqf3q9r4knsodf7b8t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
