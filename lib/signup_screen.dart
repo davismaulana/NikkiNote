@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nikkinotes/auth_services.dart';
+import 'package:nikkinotes/first_screen.dart';
 import 'package:nikkinotes/homepage.dart';
 import 'package:nikkinotes/login_screen.dart';
 import 'auth_services.dart';
@@ -170,7 +171,7 @@ class _SignupScreenState extends State<SignupScreen> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => HomePage(user: firebaseUser),
+              builder: (context) => FirstScreen(user: firebaseUser),
           ));
         }
       });

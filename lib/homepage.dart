@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:nikkinotes/auth_services.dart';
 import 'package:nikkinotes/editNote.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:nikkinotes/first_screen.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -22,28 +23,70 @@ class HomePage extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          automaticallyImplyLeading: false,
           title: Text(
-            user.uid,
-            style: TextStyle(
-              color: Colors.redAccent,
-              fontWeight: FontWeight.bold
-            ),
+            "My Notes",
+            style: TextStyle(fontSize: 18, color: Colors.white),
           ),
+          elevation: 10,
+          backgroundColor: Colors.redAccent,
+        ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              Container(
+                color: Colors.redAccent,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(10, 40, 10, 10),
+                  child: ListTile(
+                    title: Text(
+                      '${user.email}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18
+                      ),
+                    ),
+                    onTap: () {
+                      User firebaseUser = Provider.of<User>(context, listen: false);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FirstScreen(user: firebaseUser),
+                        )
+                      );
+                    },
+                  ),
+                ),
+              ),
 
-          actions: [
-            RaisedButton(
-              child: Text("Sign Out"),
-              onPressed: () async {
-                await AuthServices.signOut();
-                Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => WelcomeScreenNewUser()));
-              },
-            )
-          ],
-
-          centerTitle: true,
-          backgroundColor: Colors.white,
+              ListTile(
+                leading: Icon(Icons.notes),
+                title: Text('My Notes'),
+                onTap: () {
+                  User firebaseUser = Provider.of<User>(context, listen: false);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomePage(user: firebaseUser),
+                    )
+                  );
+                },
+              ),
+              Divider(
+                height: 10.0,
+              ),
+              ListTile(
+                leading: Icon(Icons.exit_to_app),
+                title: Text('Logout'),
+                onTap: () async {
+                  await AuthServices.signOut();
+                  Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => WelcomeScreenNewUser()));
+                },
+              )
+            ],
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.redAccent,
