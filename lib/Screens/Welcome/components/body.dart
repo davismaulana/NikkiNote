@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nikkinotes/components/rounded_button.dart';
 import 'package:nikkinotes/login_screen.dart';
 import 'background.dart';
@@ -15,7 +14,7 @@ class BodyNewUser extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget> [
             Text(
-              "GOOD MORNING",
+              "WELCOME",
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,

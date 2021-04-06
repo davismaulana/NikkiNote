@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:nikkinotes/auth_services.dart';
 import 'package:nikkinotes/first_screen.dart';
@@ -45,6 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: 300,
                 padding: EdgeInsets.all(16),
                 child: Form(
+                  autovalidate: true,
                   key: _formKey,
                   child: SingleChildScrollView(
                     child: Column(
@@ -77,6 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             RequiredValidator(errorText: "Please input your Password"),
                             MinLengthValidator(8, errorText: "Password must be at least 8 characters long"),
                           ]),
+
                           onChanged: (value) {
                               password = value;
                           },
@@ -139,16 +143,20 @@ class _LoginScreenState extends State<LoginScreen> {
   void login() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      await AuthServices.signIn(email, password).then((value) {
-        User firebaseUser = Provider.of<User>(context, listen: false);
-        if (value != null) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => FirstScreen(user: firebaseUser),
-          ));
-        }
-      });
+      SignInSignUpResult result = await AuthServices.signIn(email: email, password: password);
+      if (result.user != null) {
+        Navigator.push(
+          context, 
+          MaterialPageRoute(builder: (context) => FirstScreen(user: result.user,))
+        );
+      }
+      else if(result.message != null){
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(result.message),
+          )
+        );
+      }
     }
   }
 }

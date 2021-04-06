@@ -47,6 +47,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 width: 300,
                 padding: EdgeInsets.all(16),
                 child: Form(
+                  autovalidate: true,
                   key: _formKey,
                   child: SingleChildScrollView(
                     child: Column(
@@ -162,19 +163,33 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
     );
   }
+  
   void submit() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      await AuthServices.signUp(email, password).then((value) {
-        User firebaseUser = Provider.of<User>(context, listen: false);
-        if (value != null) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => FirstScreen(user: firebaseUser),
-          ));
-        }
-      });
+      SignInSignUpResult result = await AuthServices.signUp(email: email, password: password);
+      if (result.user != null) {
+        Navigator.push(
+          context, 
+          MaterialPageRoute(builder: (context) => FirstScreen(user: result.user,))
+        );
+      }else{
+        showDialog(
+          context: context, 
+          builder: (context) => AlertDialog(
+            title: Text("ERROR"),
+            content: Text(result.message),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: (){
+                  Navigator.pop(context);
+                }, 
+                child: Text("OK"),
+              )
+            ],
+          )
+        );
+      }
     }
   }
 }

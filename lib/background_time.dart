@@ -18,7 +18,7 @@ class Background extends StatelessWidget {
 
     // MORNING
 
-    if (now.hour.toInt() > 04 && now.hour.toInt() < 10) {
+    if (now.hour.toInt() > 3 && now.hour.toInt() < 10) {
       return Container(
         height: size.height,
         width: double.infinity,
@@ -66,7 +66,7 @@ class Background extends StatelessWidget {
 
     // NIGHT
 
-    else if (now.hour.toInt() > 19 && now.hour.toInt() < 4) {
+    else if (now.hour.toInt() > 19 && now.hour.toInt() < 25) {
       return Container(
         height: size.height,
         width: double.infinity,
@@ -80,6 +80,21 @@ class Background extends StatelessWidget {
       );
     }
 
-    
+    // NIGHT 2
+
+    else if (now.hour.toInt() >= 1 && now.hour.toInt() < 4 ) {
+      return Container(
+        height: size.height,
+        width: double.infinity,
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget> [
+            Image.asset("assets/images/night.jpg"),
+            child,
+          ],
+        ),
+      );
+    }
+
   }
 }
